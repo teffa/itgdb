@@ -19,6 +19,7 @@ class ChangeReleaseDateForm(forms.Form):
     new_release_date = forms.DateTimeField(
         label='New release date (remember to account for UTC offset)'
     )
+    show_year_only = forms.BooleanField(required=False)
 
 
 class PatchSongForm(forms.Form):

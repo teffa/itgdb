@@ -62,15 +62,19 @@ class PackAdmin(ExtraButtonsMixin, admin.ModelAdmin):
             form = ChangeReleaseDateForm(req.POST)
             if form.is_valid():
                 new_release_date = form.cleaned_data['new_release_date']
+                show_year_only = form.cleaned_data['show_year_only']
                 with transaction.atomic():
                     pack = Pack.objects.get(pk=pack_id)
                     pack.release_date = new_release_date
+                    pack.release_date_year_only = show_year_only
                     pack.save()
                     Song.objects.filter(pack__id=pack_id).update(
-                        release_date=new_release_date
+                        release_date=new_release_date,
+                        release_date_year_only=show_year_only
                     )
                     Chart.objects.filter(song__pack__id=pack_id).update(
-                        release_date=new_release_date
+                        release_date=new_release_date,
+                        release_date_year_only=show_year_only
                     )
                 messages.success(req,
                     f'Changed release date of {pack.name} to {new_release_date}.'
@@ -306,12 +310,15 @@ class SongAdmin(ExtraButtonsMixin, admin.ModelAdmin):
             form = ChangeReleaseDateForm(req.POST)
             if form.is_valid():
                 new_release_date = form.cleaned_data['new_release_date']
+                show_year_only = form.cleaned_data['show_year_only']
                 with transaction.atomic():
                     song = Song.objects.get(pk=song_id)
                     song.release_date = new_release_date
+                    song.release_date_year_only = show_year_only
                     song.save()
                     Chart.objects.filter(song__id=song_id).update(
-                        release_date=new_release_date
+                        release_date=new_release_date,
+                        release_date_year_only=show_year_only
                     )
                 messages.success(req,
                     f'Changed release date of {song.title} to {new_release_date}.'
