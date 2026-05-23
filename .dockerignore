@@ -3,4 +3,5 @@ __pycache__
 .venv/
 uploads/
 log/
+scripts/
 .env*

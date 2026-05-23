@@ -8,6 +8,7 @@ db.sqlite3
 uploads/
 staticfiles/
 log/
+scripts/
 
 # for ad-hoc profiling
 test_profile.py
