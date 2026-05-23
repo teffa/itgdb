@@ -62,11 +62,7 @@ Requires tables.css to be loaded.
 
         <td class="lh-sm text-start">
           <span data-sort-key="{{ forloop.counter }}">
-            <a href="{% url 'itgdb_site:song_detail' song.id %}">
-              {{ song.title }}
-              <span class="song-subtitle">{{ song.subtitle }}</span>
-            </a><br />
-            <span class="song-artist text-muted">{{ song.artist }}</span>
+            {% include 'itgdb_site/components/song_title_artist.html' %}
           </span>
         </td>
 

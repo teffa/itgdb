@@ -56,6 +56,13 @@ a {
     font-size: 0.8em;
 }
 
+.has-translit {
+    text-decoration: underline dotted;
+    text-decoration-color: color-mix(in srgb, currentColor 90%, transparent);
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 0.175em;
+}
+
 /* overrides bootstrap tooltip */
 .tooltip-inner {
     min-width: 100px;

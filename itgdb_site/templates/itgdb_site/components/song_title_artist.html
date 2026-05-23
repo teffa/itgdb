@@ -1,0 +1,22 @@
+<a
+  href="{% url 'itgdb_site:song_detail' song.id %}{% if chart %}#chart-{{ chart.id }}{% endif %}"
+  {% if song.title_translit and song.title_translit != song.title or song.subtitle_translit and song.subtitle_translit != song.subtitle %}
+    {% firstof song.title_translit song.title as title %}
+    {% firstof song.subtitle_translit song.subtitle as subtitle %}
+    class="has-tooltip has-translit"
+    data-bs-title="{{ title }} {{ subtitle }}"
+  {% endif %}
+>
+  {{ song.title }}
+  <span class="song-subtitle">{{ song.subtitle }}</span>
+</a><br />
+<span
+  {% if song.artist_translit and song.artist_translit != song.artist %}
+    class="song-artist text-muted has-tooltip has-translit"
+    data-bs-title="{{ song.artist_translit }}"
+  {% else %}
+    class="song-artist text-muted"
+  {% endif %}
+>
+  {{ song.artist }}
+</span>
