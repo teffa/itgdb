@@ -314,7 +314,7 @@ class PackSearchView(generic.ListView):
                 qset = Pack.objects.filter(name__icontains=data['q'])
 
             if data['category']:
-                qset = qset.filter(category=data['category'])
+                qset = qset.filter(category__in=data['category'])
             
             if data['steps_type']:
                 qset = qset.filter(
@@ -449,7 +449,7 @@ class SongSearchView(generic.ListView):
                 qset = Song.objects.all()
 
             if data['category']:
-                qset = qset.filter(pack__category=data['category'])
+                qset = qset.filter(pack__category__in=data['category'])
             
             if data['min_length']:
                 qset = qset.filter(chart_length__gte=data['min_length'])
@@ -559,7 +559,7 @@ class ChartSearchView(generic.ListView):
                 qset = Chart.objects.all()
 
             if data['category']:
-                qset = qset.filter(song__pack__category=data['category'])
+                qset = qset.filter(song__pack__category__in=data['category'])
             
             if data['min_length']:
                 qset = qset.filter(song__chart_length__gte=data['min_length'])

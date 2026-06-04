@@ -1,7 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Row, Column, HTML, Fieldset
-from crispy_forms.bootstrap import StrictButton, FieldWithButtons, Accordion, AccordionGroup, PrependedText
+from crispy_forms.bootstrap import StrictButton, FieldWithButtons, Accordion, AccordionGroup
 
 from .models import Pack, Tag, PackCategory
 
@@ -124,10 +124,11 @@ class PackSearchForm(forms.Form):
             'desc': 'Descending',
         }
     )
-    category = forms.ModelChoiceField(
+    category = forms.ModelMultipleChoiceField(
         label='Category:',
         required=False,
-        queryset=PackCategory.objects.order_by('name')
+        queryset=PackCategory.objects.order_by('name'),
+        widget=forms.CheckboxSelectMultiple
     )
     steps_type = forms.TypedMultipleChoiceField(
         label='Has steps type:',
@@ -183,7 +184,10 @@ class PackSearchForm(forms.Form):
             ),
             Accordion(AccordionGroup('Filters',
                 Row(
-                    Column('category'),
+                    Column(
+                        Field('category', css_class='category-checkboxes'),
+                        css_class='col-md-5 me-5'
+                    ),
                     Column('steps_type'),
                     Column('tags')
                 ),
@@ -249,10 +253,11 @@ class SongSearchForm(forms.Form):
             'desc': 'Descending',
         }
     )
-    category = forms.ModelChoiceField(
+    category = forms.ModelMultipleChoiceField(
         label='Pack category:',
         required=False,
-        queryset=PackCategory.objects.order_by('name')
+        queryset=PackCategory.objects.order_by('name'),
+        widget=forms.CheckboxSelectMultiple
     )
     min_length = forms.FloatField(
         label='', required=False, min_value=0
@@ -298,7 +303,9 @@ class SongSearchForm(forms.Form):
             ),
             Accordion(AccordionGroup('Filters',
                 Row(
-                    Column('category'),
+                    Column(
+                        Field('category', css_class='category-checkboxes'),
+                    ),
                     Column(Fieldset('Length (seconds):', Row(
                         Column(
                             Field('min_length', placeholder='Min'),
@@ -374,10 +381,11 @@ class ChartSearchForm(forms.Form):
             'desc': 'Descending',
         }
     )
-    category = forms.ModelChoiceField(
+    category = forms.ModelMultipleChoiceField(
         label='Pack category:',
         required=False,
-        queryset=PackCategory.objects.order_by('name')
+        queryset=PackCategory.objects.order_by('name'),
+        widget=forms.CheckboxSelectMultiple
     )
     min_length = forms.FloatField(
         label='', required=False, min_value=0
@@ -446,7 +454,9 @@ class ChartSearchForm(forms.Form):
             ),
             Accordion(AccordionGroup('Filters',
                 Row(
-                    Column('category'),
+                    Column(
+                        Field('category', css_class='category-checkboxes'),
+                    ),
                     Column(Fieldset('Length (seconds):',Row(
                         Column(
                             Field('min_length', placeholder='Min'),

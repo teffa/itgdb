@@ -19,8 +19,17 @@ form.search-form legend {
     background-color: inherit;
 }
 
+fieldset div:has(.form-check) {
+    padding-top: 0.25rem;
+}
+
 /* Make the difficulty checkboxes inline in the chart search page */
 #div_id_diff div.form-check {
     display: inline-block;
     margin-right: 1rem;
 }
+
+.category-checkboxes {
+    column-count: 2;
+}
+
