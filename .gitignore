@@ -10,6 +10,7 @@ uploads/
 staticfiles/
 log/
 scripts/
+*session_summary.md
 
 # for ad-hoc profiling
 test_profile.py
