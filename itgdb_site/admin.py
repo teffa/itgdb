@@ -119,6 +119,8 @@ class PackAdmin(ExtraButtonsMixin, admin.ModelAdmin):
 
     @admin.display
     def pack_actions(self, obj):
+        if not obj or not obj.pk:
+            return '—'
         return format_html(
             '<a class="button" href="{}">Set release date</a>'
             '<a class="button" href="{}">Upload patch</a>',

@@ -15,8 +15,6 @@ services:
     depends_on:
       - redis
       - db
-    dns:
-      - 10.0.2.20
     networks:
       - ls
 
@@ -32,11 +30,9 @@ services:
     depends_on:
       - redis
       - db
-    dns:
-      - 10.0.2.20
     networks:
       - ls
-  
+
   db:
     image: postgres:16-alpine
     volumes:
@@ -52,26 +48,9 @@ services:
     image: redis:7-alpine
     networks:
       - ls
-  
-  localstack:
-    image: localstack/localstack:4.14
-    ports:
-      - "4566:4566"
-    volumes:
-      - ./docker/local/localstack/setup.sh:/etc/localstack/init/ready.d/script.sh
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    networks:
-      ls:
-        ipv4_address: 10.0.2.20
 
 volumes:
   postgres_data:
 
-# https://docs.localstack.cloud/references/network-troubleshooting/endpoint-url/#from-your-container
-# we want localhost.localstack.cloud to resolve to the localstack instance
-# so we can use one endpoint from both inside and outside the containers
 networks:
   ls:
-    ipam:
-      config:
-        - subnet: 10.0.2.0/24
