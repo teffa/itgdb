@@ -5,6 +5,7 @@ db.sqlite3
 .env
 .env.vhost
 .env.proxy-companion
+.env.tunnel
 uploads/
 staticfiles/
 log/
