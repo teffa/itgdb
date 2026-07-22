@@ -1,6 +1,7 @@
 import os
 import shutil
 import re
+import time
 import uuid
 from django.conf import settings
 from django.core.files.storage import default_storage
@@ -137,6 +138,13 @@ def _find_packs(pack_names, extracted_path):
 
 def _extract_pack(file_path):
     # TODO: likely susceptible to malicious zips (zip bombs, etc.)
+    # the upload was just written by a different process/container, so on
+    # some setups (e.g. shared volumes under Docker Desktop) it may take a
+    # moment to become visible here; wait briefly rather than failing outright
+    for _ in range(20):
+        if os.path.exists(file_path):
+            break
+        time.sleep(0.25)
     try:
         filename = os.path.basename(file_path)
         extract_dir = filename.rsplit('.', 1)[0]
